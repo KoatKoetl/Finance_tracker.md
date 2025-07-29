@@ -8,7 +8,9 @@ function App() {
     <>
       <Router>
         <Header></Header>
-        <RoutesComponent />
+        <div className="max-w-[1440px] mx-auto">
+          <RoutesComponent />
+        </div>
         <Footer></Footer>
       </Router>
     </>
