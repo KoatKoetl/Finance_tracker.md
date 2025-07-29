@@ -5,6 +5,8 @@ import {
   type RegisterFormData,
 } from "./RegisterForm.types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 
 // Shadcn UI components
 import { Input } from "../ui/input";
@@ -14,6 +16,7 @@ import { Label } from "../ui/label";
 
 const RegisterForm = () => {
   const { t } = useTranslation();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const {
     register,
@@ -23,8 +26,40 @@ const RegisterForm = () => {
     resolver: zodResolver(registerFormSchema),
   });
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log("Form data:", data);
+  const onSubmit = async (data: RegisterFormData) => {
+    if (!recaptchaRef.current) return;
+
+    try {
+      const token = await recaptchaRef.current.executeAsync();
+      recaptchaRef.current.reset();
+
+      const res = await fetch(
+        "https://jqqkpjvlrvzcevfdahxn.supabase.co/functions/v1/reCaptchaCheck",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...data, recaptchaToken: token }),
+        }
+      );
+
+      console.log("Response status:", res.status);
+      console.log("Response headers:", res.headers);
+
+      const result = await res.json();
+      console.log("Response body:", result);
+
+      if (!res.ok) {
+        console.error("Registration failed:", result.error || result.message);
+        // TODO: Show error message to user
+        return;
+      }
+
+      console.log("User registered successfully:", result.user);
+      // TODO: Redirect user or show success UI
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      // TODO: Show fallback error message
+    }
   };
 
   return (
@@ -90,6 +125,12 @@ const RegisterForm = () => {
                 </p>
               )}
             </div>
+
+            <ReCAPTCHA
+              sitekey={import.meta.env.VITE_NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+              size="invisible"
+              ref={recaptchaRef}
+            />
 
             <Button
               type="submit"
