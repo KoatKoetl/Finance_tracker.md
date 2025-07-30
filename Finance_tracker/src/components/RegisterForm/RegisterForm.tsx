@@ -6,7 +6,9 @@ import {
 } from "./RegisterForm.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 // Shadcn UI components
 import { Input } from "../ui/input";
@@ -17,6 +19,9 @@ import { Label } from "../ui/label";
 const RegisterForm = () => {
   const { t } = useTranslation();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,6 +34,9 @@ const RegisterForm = () => {
   const onSubmit = async (data: RegisterFormData) => {
     if (!recaptchaRef.current) return;
 
+    setIsSubmitting(true);
+    setMessage("");
+
     try {
       const token = await recaptchaRef.current.executeAsync();
       recaptchaRef.current.reset();
@@ -38,27 +46,47 @@ const RegisterForm = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...data, recaptchaToken: token }),
+          body: JSON.stringify({ recaptchaToken: token }),
         }
       );
 
-      console.log("Response status:", res.status);
-      console.log("Response headers:", res.headers);
-
       const result = await res.json();
-      console.log("Response body:", result);
 
-      if (!res.ok) {
-        console.error("Registration failed:", result.error || result.message);
-        // TODO: Show error message to user
+      if (!res.ok || !result.success) {
+        console.error(
+          "reCAPTCHA verification failed:",
+          result.error || result.message
+        );
+        setMessage(
+          t("recaptchaFailed", { error: result.error || t("unknownError") })
+        );
         return;
       }
 
-      console.log("User registered successfully:", result.user);
-      // TODO: Redirect user or show success UI
+      const { data: authData, error: authError } =
+        await supabase.auth.signInWithOtp({
+          email: data.email,
+        });
+
+      if (authError) {
+        console.error(
+          "Supabase registration/OTP send failed:",
+          authError.message
+        );
+        setMessage(t("registrationFailed", { error: authError.message }));
+      } else {
+        // console.log("Supabase signup/OTP email sent successfully!", authData);
+        setMessage(t("registrationSuccessOtpSent"));
+
+        navigate(
+          "/register/verification?email=" + encodeURIComponent(data.email)
+        );
+      }
     } catch (err) {
-      console.error("Unexpected error:", err);
-      // TODO: Show fallback error message
+      console.error("Unexpected error during registration:", err);
+      setMessage(t("unexpectedError"));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -82,6 +110,7 @@ const RegisterForm = () => {
                 placeholder="email@example.com"
                 className="focus-visible:ring-2"
                 {...register("email")}
+                disabled={isSubmitting}
               />
               {errors.email && (
                 <p className="text-red-500 text-sm">
@@ -100,6 +129,7 @@ const RegisterForm = () => {
                 className="focus-visible:ring-2"
                 placeholder="••••••••"
                 {...register("password")}
+                disabled={isSubmitting}
               />
               {errors.password && (
                 <p className="text-red-500 text-sm">
@@ -118,6 +148,7 @@ const RegisterForm = () => {
                 className="focus-visible:ring-2"
                 placeholder="••••••••"
                 {...register("confirmPassword")}
+                disabled={isSubmitting}
               />
               {errors.confirmPassword && (
                 <p className="text-red-500 text-sm">
@@ -136,10 +167,22 @@ const RegisterForm = () => {
               type="submit"
               variant="outline"
               className="w-full border-primaryOrange text-primaryOrange transition-all duration-300 hover:bg-primaryOrange hover:text-white"
+              disabled={isSubmitting}
             >
-              {t("submitRegistration")}
+              {isSubmitting ? t("submitting") : t("submitRegistration")}
             </Button>
           </form>
+          {message && (
+            <p
+              className={`mt-4 text-center text-sm ${
+                message.includes(t("failed")) || message.includes(t("error"))
+                  ? "text-red-500"
+                  : "text-green-500"
+              }`}
+            >
+              {message}
+            </p>
+          )}
         </CardContent>
       </Card>
     </div>
