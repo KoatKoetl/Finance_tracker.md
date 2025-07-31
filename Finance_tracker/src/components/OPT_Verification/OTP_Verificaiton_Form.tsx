@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { otpFormSchema, type otpFormData } from "./OTP_Verification_Form.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuthStore } from "../../stores/AuthStore";
 
 // Shadcn UI components
 import { Input } from "../ui/input";
@@ -18,7 +19,9 @@ const OTP_Verification_Form = () => {
   const [message, setMessage] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
   const [isResending, setIsResending] = useState(false);
+  const { isAuthenticated, loading } = useAuthStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -29,40 +32,33 @@ const OTP_Verification_Form = () => {
   });
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const emailFromUrl = params.get("email");
-    if (emailFromUrl) {
-      setEmail(emailFromUrl);
-      setMessage(t("otpSentTo", { email: emailFromUrl }));
+    const emailFromState = location.state?.email;
+
+    if (emailFromState) {
+      setEmail(emailFromState);
+      setMessage(t("otpSentTo", { email: emailFromState }));
     } else {
-      setMessage(t("missingEmailForVerification", { error: "missing email" }));
-      console.warn(
-        "Email not found in URL. Please ensure email is passed to OTP verification page."
-      );
+      const params = new URLSearchParams(window.location.search);
+      const emailFromUrl = params.get("email");
+      if (emailFromUrl) {
+        setEmail(emailFromUrl);
+        setMessage(t("otpSentTo", { email: emailFromUrl }));
+      } else {
+        setMessage(
+          t("missingEmailForVerification", { error: "missing email" })
+        );
+        console.warn(
+          "Email not found. Please ensure email is passed to OTP verification page."
+        );
+      }
     }
-  }, [t]);
+  }, [t, location.state]);
 
   useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (event === "SIGNED_IN" && session) {
-          setMessage(
-            t("otpVerifiedAndSignedIn", { email: session.user.email })
-          );
-          // console.log("User signed in after OTP verification:", session.user);
-          navigate("/");
-        } else if (event === "SIGNED_OUT") {
-          setMessage(t("signedOut"));
-        }
-      }
-    );
-
-    return () => {
-      if (authListener && authListener.unsubscribe) {
-        authListener.unsubscribe();
-      }
-    };
-  }, [t, navigate]);
+    if (!loading && isAuthenticated) {
+      navigate("/");
+    }
+  }, [loading, isAuthenticated, navigate]);
 
   const onSubmit: SubmitHandler<otpFormData> = async (data) => {
     if (!email) {
@@ -119,6 +115,18 @@ const OTP_Verification_Form = () => {
       setIsResending(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-56px-70px)] px-4 md:px-0">
+        <p>{t("loading")}...</p>
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
+    navigate("/");
+  }
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-56px-70px)] px-4 md:px-0">
