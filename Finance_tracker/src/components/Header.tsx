@@ -2,8 +2,9 @@ import LanguageSelector from "./LanguageSelector";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
-import { UserPlus } from "lucide-react";
+import { User } from "lucide-react";
 import { useAuthStore } from "../stores/AuthStore";
+import LogoutButton from "./LogOutButton/LogOutButton";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -20,22 +21,20 @@ const Header = () => {
         <div className="flex gap-2">
           {!isAuthenticated && (
             <div>
-              <Link
-                to={"/register"}
-                className="text-gray-600 hover:text-gray-900"
-              >
+              <Link to={"/auth"} className="text-gray-600 hover:text-gray-900">
                 <Button
-                  id="register-page-button"
-                  variant="link"
-                  className="text-black cursor-pointer hover:underline"
+                  id="auth-page-button"
+                  variant="ghost"
+                  className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
                 >
-                  <UserPlus />
-                  {t("registration")}
+                  <User />
+                  {t("login")}
                 </Button>
               </Link>
             </div>
           )}
           <LanguageSelector />
+          {isAuthenticated && <LogoutButton />}
         </div>
       </div>
     </header>
