@@ -20,7 +20,10 @@ const LanguageSelector = () => {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button className="cursor-pointer" variant="link">
+        <Button
+          className="hover:bg-gray-100 transition-all duration-300 ease-in-out"
+          variant="ghost"
+        >
           {language.toUpperCase()}
         </Button>
       </DropdownMenuTrigger>
