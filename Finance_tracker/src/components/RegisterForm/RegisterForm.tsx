@@ -9,6 +9,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { MoveLeft } from "lucide-react";
 
 // Shadcn UI components
 import { Input } from "../ui/input";
@@ -63,10 +65,10 @@ const RegisterForm = () => {
         return;
       }
 
-      const { data: authData, error: authError } =
-        await supabase.auth.signInWithOtp({
-          email: data.email,
-        });
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+      });
 
       if (authError) {
         console.error(
@@ -92,7 +94,10 @@ const RegisterForm = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-56px-70px)] px-4 md:px-0">
-      <Card className="w-full max-w-md shadow-lg border-[#bf6629] shadow-[#bf6629]/50 gap-y-2 md:gap-y-6">
+      <Card className="w-full relative max-w-md shadow-lg border-[#bf6629] shadow-[#bf6629]/50 gap-y-2 md:gap-y-6">
+        <Link to="/auth">
+          <MoveLeft className="absolute top-2 left-2" />
+        </Link>
         <CardHeader>
           <CardTitle className="text-center text-2xl">
             {t("registration")}
