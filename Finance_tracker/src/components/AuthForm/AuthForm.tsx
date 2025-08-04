@@ -1,39 +1,33 @@
-import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import {
-  registerFormSchema,
-  type RegisterFormData,
-} from "./RegisterForm.types";
-import { zodResolver } from "@hookform/resolvers/zod";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useRef, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { MoveLeft } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { authFormSchema, type AuthFormData } from "./AuthForm.types";
+import { useRef, useState } from "react";
 
 // Shadcn UI components
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
-const RegisterForm = () => {
-  const { t } = useTranslation();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [message, setMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
-
+const AuthForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterFormData>({
-    resolver: zodResolver(registerFormSchema),
+  } = useForm<AuthFormData>({
+    resolver: zodResolver(authFormSchema),
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const onSubmit = async (data: RegisterFormData) => {
+  const { t } = useTranslation();
+
+  const onSubmit = async (data: AuthFormData) => {
     if (!recaptchaRef.current) return;
 
     setIsSubmitting(true);
@@ -65,28 +59,19 @@ const RegisterForm = () => {
         return;
       }
 
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { data: authData, error } = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
 
-      if (authError) {
-        console.error(
-          "Supabase registration/OTP send failed:",
-          authError.message
-        );
-        setMessage(t("registrationFailed", { error: authError.message }));
+      if (error) {
+        throw error;
       } else {
-        // console.log("Supabase signup/OTP email sent successfully!", authData);
-        setMessage(t("registrationSuccessOtpSent"));
-
-        navigate(
-          "/register/verification?email=" + encodeURIComponent(data.email)
-        );
+        setMessage(t("loginSuccess"));
       }
-    } catch (err) {
-      console.error("Unexpected error during registration:", err);
-      setMessage(t("unexpectedError"));
+    } catch (error: any) {
+      console.error("Login failed:", error.message);
+      setMessage(t("loginFailed", { error: t(error.code) }));
     } finally {
       setIsSubmitting(false);
     }
@@ -94,14 +79,9 @@ const RegisterForm = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-56px-70px)] px-4 md:px-0">
-      <Card className="w-full relative max-w-md shadow-lg border-[#bf6629] shadow-[#bf6629]/50 gap-y-2 md:gap-y-6">
-        <Link to="/auth">
-          <MoveLeft className="absolute top-2 left-2" />
-        </Link>
+      <Card className="w-full max-w-md shadow-lg border-[#bf6629] shadow-[#bf6629]/50 gap-y-2 md:gap-y-6">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">
-            {t("registration")}
-          </CardTitle>
+          <CardTitle className="text-center text-2xl">{t("login")}</CardTitle>
         </CardHeader>
         <CardContent className="px-4 md:px-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -143,25 +123,6 @@ const RegisterForm = () => {
               )}
             </div>
 
-            <div>
-              <Label className="mb-1" htmlFor="confirmPassword">
-                {t("confirmPassword")}
-              </Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                className="focus-visible:ring-2"
-                placeholder="••••••••"
-                {...register("confirmPassword")}
-                disabled={isSubmitting}
-              />
-              {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">
-                  {t(errors.confirmPassword.message || "fieldRequired")}
-                </p>
-              )}
-            </div>
-
             <ReCAPTCHA
               sitekey={import.meta.env.VITE_NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               size="invisible"
@@ -171,12 +132,21 @@ const RegisterForm = () => {
             <Button
               type="submit"
               variant="outline"
-              className="w-full border-primaryOrange text-primaryOrange transition-all duration-300 hover:bg-primaryOrange hover:text-white"
+              className="w-full mb-4 border-primaryOrange text-primaryOrange transition-all duration-300 hover:bg-primaryOrange hover:text-white"
               disabled={isSubmitting}
             >
-              {isSubmitting ? t("submitting") : t("submitRegistration")}
+              {isSubmitting ? t("submitting") : t("submitLogin")}
             </Button>
           </form>
+
+          <Link to="/register">
+            <Button
+              variant="outline"
+              className="w-full border-primaryOrange text-primaryOrange transition-all duration-300 hover:bg-primaryOrange hover:text-white"
+            >
+              {t("register")}
+            </Button>
+          </Link>
           {message && (
             <p
               className={`mt-4 text-center text-sm ${
@@ -194,4 +164,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default AuthForm;
