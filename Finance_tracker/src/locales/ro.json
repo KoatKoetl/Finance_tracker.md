@@ -36,7 +36,7 @@
   "loginFailed": "Eroare: Nu s-a putut autentifica, {{error}}",
   "email_not_confirmed": "email neconfirmat",
   "loginSuccess": "Autentificare reușită",
-  "logout": "Deconectare",
+  "logout": "Deconectează-te",
   "loading": "Încărcare...",
   "missingEmailForResend": "Eroare: Adresa de email lipsă pentru trimiterea din nou a codului de verificare",
   "unexpectedErrorOtp": "Eroare: A apărut o eroare neașteptată în timpul verificării OTP",

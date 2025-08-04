@@ -15,7 +15,7 @@ const LogoutButton = () => {
         console.error("Error signing out:", error.message);
       } else {
         console.log("Successfully logged out!");
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.error("An unexpected error occurred during logout.", error);
