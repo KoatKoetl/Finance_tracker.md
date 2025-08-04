@@ -80,7 +80,7 @@ const OTP_Verification_Form = () => {
         console.error("OTP verification failed:", verifyError.message);
         setMessage(t("otpVerificationFailed", { error: verifyError.message }));
       } else {
-        console.log("OTP verification successful, awaiting session update.");
+        // console.log("OTP verification successful, awaiting session update.");
       }
     } catch (err) {
       console.error("Unexpected error during OTP verification:", err);

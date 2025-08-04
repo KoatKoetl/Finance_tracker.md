@@ -14,7 +14,7 @@ const LogoutButton = () => {
       if (error) {
         console.error("Error signing out:", error.message);
       } else {
-        console.log("Successfully logged out!");
+        // console.log("Successfully logged out!");
         navigate("/");
       }
     } catch (error) {
