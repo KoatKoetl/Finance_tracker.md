@@ -31,5 +31,6 @@
   "missingEmailForVerification": "Error: Missing email for verification",
   "otpVerifiedAndSignedIn": "Verification code verified and signed in",
   "submitLogin": "Login",
-  "login": "Login"
+  "login": "Login",
+  "loginFailed": "Login failed"
 }

@@ -31,5 +31,6 @@
   "missingEmailForVerification": "Ошибка: Отсутствует адрес электронной почты для проверки",
   "otpVerifiedAndSignedIn": "Проверочный код успешно проверен и авторизован",
   "submitLogin": "Войти",
-  "login": "Вход"
+  "login": "Вход",
+  "loginFailed": "Не удалось войти"
 }

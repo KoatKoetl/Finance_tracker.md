@@ -31,5 +31,6 @@
   "missingEmailForVerification": "Eroare: Adresa de email lipsă pentru verificare",
   "otpVerifiedAndSignedIn": "Codul de verificare a fost verificat si autentificat",
   "submitLogin": "Autentificare",
-  "login": "Autentificare"
+  "login": "Autentificare",
+  "loginFailed": "Nu s-a putut autentifica"
 }
