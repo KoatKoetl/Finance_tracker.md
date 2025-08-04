@@ -6,6 +6,7 @@
   "password": "Parolă",
   "confirmPassword": "Confirmă Parola",
   "submitRegistration": "Înregistrează-te",
+  "register": "Înregistrează-te",
   "submitting": "Trimitere",
   "fieldRequired": "Acest câmp este obligatoriu",
   "passwordsDoNotMatch": "Parolele nu se potrivesc",
@@ -32,5 +33,13 @@
   "otpVerifiedAndSignedIn": "Codul de verificare a fost verificat si autentificat",
   "submitLogin": "Autentificare",
   "login": "Autentificare",
-  "loginFailed": "Nu s-a putut autentifica"
+  "loginFailed": "Eroare: Nu s-a putut autentifica, {{error}}",
+  "email_not_confirmed": "email neconfirmat",
+  "loginSuccess": "Autentificare reușită",
+  "logout": "Deconectare",
+  "loading": "Încărcare...",
+  "missingEmailForResend": "Eroare: Adresa de email lipsă pentru trimiterea din nou a codului de verificare",
+  "unexpectedErrorOtp": "Eroare: A apărut o eroare neașteptată în timpul verificării OTP",
+  "otpVerificationFailed": "Eroare: Verificarea OTP a eșuat",
+  "invalid_credentials": "credentiale invalide"
 }

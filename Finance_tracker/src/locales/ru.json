@@ -6,6 +6,7 @@
   "password": "Пароль",
   "confirmPassword": "Подтвердите пароль",
   "submitRegistration": "Зарегистрироваться",
+  "register": "Зарегистрироваться",
   "submitting": "Отправка",
   "fieldRequired": "Это поле обязательно для заполнения",
   "passwordsDoNotMatch": "Пароли не совпадают",
@@ -32,5 +33,13 @@
   "otpVerifiedAndSignedIn": "Проверочный код успешно проверен и авторизован",
   "submitLogin": "Войти",
   "login": "Вход",
-  "loginFailed": "Не удалось войти"
+  "loginFailed": "Ошибка: Не удалось войти, {{error}}",
+  "email_not_confirmed": "email не подтвержден",
+  "loginSuccess": "Вход выполнен успешно",
+  "logout": "Выход",
+  "loading": "Загрузка...",
+  "missingEmailForResend": "Ошибка: Отсутствует адрес электронной почты для повторной отправки проверочного кода",
+  "unexpectedErrorOtp": "Ошибка: Произошла неожиданная ошибка при проверке OTP",
+  "otpVerificationFailed": "Ошибка: Проверка OTP не удалась",
+  "invalid_credentials": "неправильные учетные данные"
 }
