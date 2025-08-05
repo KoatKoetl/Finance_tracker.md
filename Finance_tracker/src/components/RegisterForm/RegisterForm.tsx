@@ -71,14 +71,11 @@ const RegisterForm = () => {
       });
 
       if (authError) {
-        console.error(
-          "Supabase registration/OTP send failed:",
-          authError.message
-        );
+        console.error("Supabase registration send failed:", authError.message);
         setMessage(t("registrationFailed", { error: authError.message }));
       } else {
-        // console.log("Supabase signup/OTP email sent successfully!", authData);
-        setMessage(t("registrationSuccessOtpSent"));
+        // console.log("Supabase signup email sent successfully!", authData);
+        setMessage(t("registrationSuccessSent"));
 
         navigate(
           "/register/verification?email=" + encodeURIComponent(data.email)

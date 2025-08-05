@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../stores/AuthStore";
+import { type SubmitHandler } from "react-hook-form";
 
 // Shadcn UI components
 import { Input } from "../ui/input";

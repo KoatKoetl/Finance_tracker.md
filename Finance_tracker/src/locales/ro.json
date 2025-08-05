@@ -15,7 +15,7 @@
   "recaptchaFailed": "Eroare: Verificarea reCAPTCHA a esuat {{error}}",
   "unknownError": "A aparut o eroare necunoscuta",
   "registrationFailed": "Eroare la inregistrare",
-  "registrationSuccessOtpSent": "Inregistrare reusita. Cod de verificare trimis la adresa de email.",
+  "registrationSuccessSent": "Inregistrare reusita. Cod de verificare trimis la adresa de email.",
   "unexpectedError": "A aparut o eroare necunoscuta",
   "failed": "Eroare",
   "error": "Eroare",
