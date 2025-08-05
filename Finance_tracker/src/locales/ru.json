@@ -41,5 +41,6 @@
   "missingEmailForResend": "Ошибка: Отсутствует адрес электронной почты для повторной отправки проверочного кода",
   "unexpectedErrorOtp": "Ошибка: Произошла неожиданная ошибка при проверке OTP",
   "otpVerificationFailed": "Ошибка: Проверка OTP не удалась",
-  "invalid_credentials": "неправильные учетные данные"
+  "invalid_credentials": "неправильные учетные данные",
+  "passwordCheckFailed": "Ошибка: Проверка пароля не удалась, {{error}}"
 }

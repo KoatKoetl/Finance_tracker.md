@@ -41,5 +41,6 @@
   "missingEmailForResend": "Error: Missing email for resending verification code",
   "unexpectedErrorOtp": "Error: Unexpected error occurred during OTP verification",
   "otpVerificationFailed": "Error: OTP verification failed",
-  "invalid_credentials": "invalid credentials"
+  "invalid_credentials": "invalid credentials",
+  "passwordCheckFailed": "Error: Password check failed, {{error}}"
 }

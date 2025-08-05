@@ -41,5 +41,6 @@
   "missingEmailForResend": "Eroare: Adresa de email lipsă pentru trimiterea din nou a codului de verificare",
   "unexpectedErrorOtp": "Eroare: A apărut o eroare neașteptată în timpul verificării OTP",
   "otpVerificationFailed": "Eroare: Verificarea OTP a eșuat",
-  "invalid_credentials": "credentiale invalide"
+  "invalid_credentials": "credentiale invalide",
+  "passwordCheckFailed": "Eroare: Verificarea parolei a eșuat, {{error}}"
 }

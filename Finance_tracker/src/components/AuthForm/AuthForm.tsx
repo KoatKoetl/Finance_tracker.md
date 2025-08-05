@@ -37,7 +37,7 @@ const AuthForm = () => {
       const token = await recaptchaRef.current.executeAsync();
       recaptchaRef.current.reset();
 
-      const res = await fetch(
+      const recaptchaRes = await fetch(
         "https://jqqkpjvlrvzcevfdahxn.supabase.co/functions/v1/reCaptchaCheck",
         {
           method: "POST",
@@ -46,28 +46,57 @@ const AuthForm = () => {
         }
       );
 
-      const result = await res.json();
+      const recaptchaResult = await recaptchaRes.json();
 
-      if (!res.ok || !result.success) {
+      if (!recaptchaRes.ok || !recaptchaResult.success) {
         console.error(
           "reCAPTCHA verification failed:",
-          result.error || result.message
+          recaptchaResult.error || recaptchaResult.message
         );
         setMessage(
-          t("recaptchaFailed", { error: result.error || t("unknownError") })
+          t("recaptchaFailed", {
+            error: recaptchaResult.error || t("unknownError"),
+          })
         );
         return;
       }
 
-      const { data: authData, error } = await supabase.auth.signInWithPassword({
+      const passwordCheckRes = await fetch(
+        "https://jqqkpjvlrvzcevfdahxn.supabase.co/functions/v1/passwordCheck",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        }
+      );
+
+      const passwordCheckResult = await passwordCheckRes.json();
+
+      if (!passwordCheckRes.ok || !passwordCheckResult.success) {
+        console.error(
+          "Password check failed:",
+          passwordCheckResult.error || passwordCheckResult.message
+        );
+        setMessage(
+          t("passwordCheckFailed", {
+            error: passwordCheckResult.error || t("unknownError"),
+          })
+        );
+        return;
+      }
+
+      const { error: otpError } = await supabase.auth.signInWithOtp({
         email: data.email,
-        password: data.password,
+        options: {
+          shouldCreateUser: false,
+        },
       });
 
-      if (error) {
-        throw error;
-      } else {
-        setMessage(t("loginSuccess"));
+      if (otpError) {
+        throw otpError;
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);
