@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authFormSchema, type AuthFormData } from "./AuthForm.types";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Shadcn UI components
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -24,6 +25,8 @@ const AuthForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
 
@@ -90,13 +93,15 @@ const AuthForm = () => {
 
       const { error: otpError } = await supabase.auth.signInWithOtp({
         email: data.email,
-        options: {
-          shouldCreateUser: false,
-        },
       });
 
       if (otpError) {
         throw otpError;
+      } else {
+        setMessage(t("loginSuccess"));
+        navigate("/auth/verification", {
+          state: { email: data.email },
+        });
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);

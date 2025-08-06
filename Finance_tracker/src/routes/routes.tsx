@@ -16,6 +16,7 @@ const RoutesComponent = () => {
         <Route path="/register" element={<Registration />} />
         <Route path="/register/verification" element={<OTP_Verification />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/verification" element={<OTP_Verification />} />
       </Route>
     </Routes>
   );
