@@ -42,5 +42,6 @@
   "unexpectedErrorOtp": "Eroare: A apărut o eroare neașteptată în timpul verificării OTP",
   "otpVerificationFailed": "Eroare: Verificarea OTP a eșuat",
   "invalid_credentials": "credentiale invalide",
-  "passwordCheckFailed": "Eroare: Verificarea parolei a eșuat, {{error}}"
+  "passwordCheckFailed": "Eroare: Verificarea parolei a eșuat, {{error}}",
+  "suchUserExists": "Eroare: Un astfel de utilizator există deja"
 }

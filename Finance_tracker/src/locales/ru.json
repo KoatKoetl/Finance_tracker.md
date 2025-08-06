@@ -42,5 +42,6 @@
   "unexpectedErrorOtp": "Ошибка: Произошла неожиданная ошибка при проверке OTP",
   "otpVerificationFailed": "Ошибка: Проверка OTP не удалась",
   "invalid_credentials": "неправильные учетные данные",
-  "passwordCheckFailed": "Ошибка: Проверка пароля не удалась, {{error}}"
+  "passwordCheckFailed": "Ошибка: Проверка пароля не удалась, {{error}}",
+  "suchUserExists": "Ошибка: Такой пользователь уже существует"
 }
