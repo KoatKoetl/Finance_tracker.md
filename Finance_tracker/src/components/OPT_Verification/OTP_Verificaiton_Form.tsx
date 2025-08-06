@@ -74,7 +74,7 @@ const OTP_Verification_Form = () => {
       const { error: verifyError } = await supabase.auth.verifyOtp({
         email: email,
         token: data.otp,
-        type: "signup",
+        type: "email",
       });
 
       if (verifyError) {
@@ -123,10 +123,6 @@ const OTP_Verification_Form = () => {
         <p>{t("loading")}...</p>
       </div>
     );
-  }
-
-  if (isAuthenticated) {
-    navigate("/");
   }
 
   return (
