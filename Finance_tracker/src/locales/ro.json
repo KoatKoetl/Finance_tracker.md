@@ -15,7 +15,7 @@
   "recaptchaFailed": "Eroare: Verificarea reCAPTCHA a esuat {{error}}",
   "unknownError": "A aparut o eroare necunoscuta",
   "registrationFailed": "Eroare la inregistrare",
-  "registrationSuccessOtpSent": "Inregistrare reusita. Cod de verificare trimis la adresa de email.",
+  "registrationSuccessSent": "Inregistrare reusita. Cod de verificare trimis la adresa de email.",
   "unexpectedError": "A aparut o eroare necunoscuta",
   "failed": "Eroare",
   "error": "Eroare",
@@ -36,10 +36,12 @@
   "loginFailed": "Eroare: Nu s-a putut autentifica, {{error}}",
   "email_not_confirmed": "email neconfirmat",
   "loginSuccess": "Autentificare reușită",
-  "logout": "Deconectare",
+  "logout": "Deconectează-te",
   "loading": "Încărcare...",
   "missingEmailForResend": "Eroare: Adresa de email lipsă pentru trimiterea din nou a codului de verificare",
   "unexpectedErrorOtp": "Eroare: A apărut o eroare neașteptată în timpul verificării OTP",
   "otpVerificationFailed": "Eroare: Verificarea OTP a eșuat",
-  "invalid_credentials": "credentiale invalide"
+  "invalid_credentials": "credentiale invalide",
+  "passwordCheckFailed": "Eroare: Verificarea parolei a eșuat, {{error}}",
+  "suchUserExists": "Eroare: Un astfel de utilizator există deja"
 }

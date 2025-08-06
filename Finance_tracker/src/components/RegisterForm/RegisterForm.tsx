@@ -65,24 +65,28 @@ const RegisterForm = () => {
         return;
       }
 
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-      });
+      const { data: signUpData, error: signUpError } =
+        await supabase.auth.signUp({
+          email: data.email,
+          password: data.password,
+        });
 
-      if (authError) {
-        console.error(
-          "Supabase registration/OTP send failed:",
-          authError.message
-        );
-        setMessage(t("registrationFailed", { error: authError.message }));
+      if (signUpError) {
+        console.error("Supabase registration failed:", signUpError.message);
+        setMessage(t("registrationFailed", { error: signUpError.message }));
       } else {
-        // console.log("Supabase signup/OTP email sent successfully!", authData);
-        setMessage(t("registrationSuccessOtpSent"));
+        const isEmailConfirmedInResponse =
+          signUpData?.user?.user_metadata &&
+          Object.keys(signUpData.user.user_metadata).length === 0;
 
-        navigate(
-          "/register/verification?email=" + encodeURIComponent(data.email)
-        );
+        if (isEmailConfirmedInResponse) {
+          setMessage(t("suchUserExists"));
+        } else {
+          setMessage(t("registrationSuccessSent"));
+          navigate("/register/verification", {
+            state: { email: data.email, type: "signup" },
+          });
+        }
       }
     } catch (err) {
       console.error("Unexpected error during registration:", err);

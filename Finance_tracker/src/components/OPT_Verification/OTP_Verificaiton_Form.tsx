@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../stores/AuthStore";
+import { type SubmitHandler } from "react-hook-form";
 
 // Shadcn UI components
 import { Input } from "../ui/input";
@@ -73,14 +74,14 @@ const OTP_Verification_Form = () => {
       const { error: verifyError } = await supabase.auth.verifyOtp({
         email: email,
         token: data.otp,
-        type: "signup",
+        type: "email",
       });
 
       if (verifyError) {
         console.error("OTP verification failed:", verifyError.message);
         setMessage(t("otpVerificationFailed", { error: verifyError.message }));
       } else {
-        console.log("OTP verification successful, awaiting session update.");
+        // console.log("OTP verification successful, awaiting session update.");
       }
     } catch (err) {
       console.error("Unexpected error during OTP verification:", err);
@@ -122,10 +123,6 @@ const OTP_Verification_Form = () => {
         <p>{t("loading")}...</p>
       </div>
     );
-  }
-
-  if (isAuthenticated) {
-    navigate("/");
   }
 
   return (

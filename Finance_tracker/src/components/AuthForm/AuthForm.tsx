@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authFormSchema, type AuthFormData } from "./AuthForm.types";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Shadcn UI components
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -25,6 +26,8 @@ const AuthForm = () => {
   const [message, setMessage] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
+  const navigate = useNavigate();
+
   const { t } = useTranslation();
 
   const onSubmit = async (data: AuthFormData) => {
@@ -37,7 +40,7 @@ const AuthForm = () => {
       const token = await recaptchaRef.current.executeAsync();
       recaptchaRef.current.reset();
 
-      const res = await fetch(
+      const recaptchaRes = await fetch(
         "https://jqqkpjvlrvzcevfdahxn.supabase.co/functions/v1/reCaptchaCheck",
         {
           method: "POST",
@@ -46,28 +49,59 @@ const AuthForm = () => {
         }
       );
 
-      const result = await res.json();
+      const recaptchaResult = await recaptchaRes.json();
 
-      if (!res.ok || !result.success) {
+      if (!recaptchaRes.ok || !recaptchaResult.success) {
         console.error(
           "reCAPTCHA verification failed:",
-          result.error || result.message
+          recaptchaResult.error || recaptchaResult.message
         );
         setMessage(
-          t("recaptchaFailed", { error: result.error || t("unknownError") })
+          t("recaptchaFailed", {
+            error: recaptchaResult.error || t("unknownError"),
+          })
         );
         return;
       }
 
-      const { data: authData, error } = await supabase.auth.signInWithPassword({
+      const passwordCheckRes = await fetch(
+        "https://jqqkpjvlrvzcevfdahxn.supabase.co/functions/v1/passwordCheck",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        }
+      );
+
+      const passwordCheckResult = await passwordCheckRes.json();
+
+      if (!passwordCheckRes.ok || !passwordCheckResult.success) {
+        console.error(
+          "Password check failed:",
+          passwordCheckResult.error || passwordCheckResult.message
+        );
+        setMessage(
+          t("passwordCheckFailed", {
+            error: passwordCheckResult.error || t("unknownError"),
+          })
+        );
+        return;
+      }
+
+      const { error: otpError } = await supabase.auth.signInWithOtp({
         email: data.email,
-        password: data.password,
       });
 
-      if (error) {
-        throw error;
+      if (otpError) {
+        throw otpError;
       } else {
         setMessage(t("loginSuccess"));
+        navigate("/auth/verification", {
+          state: { email: data.email },
+        });
       }
     } catch (error: any) {
       console.error("Login failed:", error.message);

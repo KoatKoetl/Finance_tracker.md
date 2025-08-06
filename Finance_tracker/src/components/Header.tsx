@@ -19,6 +19,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex gap-2">
+          <LanguageSelector />
           {!isAuthenticated && (
             <div>
               <Link to={"/auth"} className="text-gray-600 hover:text-gray-900">
@@ -33,7 +34,6 @@ const Header = () => {
               </Link>
             </div>
           )}
-          <LanguageSelector />
           {isAuthenticated && <LogoutButton />}
         </div>
       </div>
