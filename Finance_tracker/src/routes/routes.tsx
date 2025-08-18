@@ -5,6 +5,9 @@ import Registration from "../pages/Registration";
 import OTP_Verification from "../pages/OTP_Verification";
 import ProtectedRoute from "../components/ProtectedRoutes";
 import Auth from "../pages/Auth";
+import PersonalPage from "../pages/Personal/Personal";
+import PersonalLayout from "../components/Personal/PersonalLayout";
+import PersonalSettingsPage from "../pages/Personal/PersonalSettingsPage";
 
 const RoutesComponent = () => {
   return (
@@ -17,6 +20,14 @@ const RoutesComponent = () => {
         <Route path="/register/verification" element={<OTP_Verification />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/verification" element={<OTP_Verification />} />
+      </Route>
+
+      {/* Routes accessible ONLY when authenticated */}
+      <Route element={<ProtectedRoute authenticate />}>
+        <Route path="/personal" element={<PersonalLayout />}>
+          <Route index element={<PersonalPage />} />
+          <Route path="settings" element={<PersonalSettingsPage />} />
+        </Route>
       </Route>
     </Routes>
   );
