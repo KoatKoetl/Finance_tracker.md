@@ -29,7 +29,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return isAuthenticated ? (
       children || <Outlet />
     ) : (
-      <Navigate to="/login" replace />
+      <Navigate to="/auth" replace />
     );
   } else {
     // This branch is for routes that REQUIRE *NO* authentication (e.g., /register, /login)
