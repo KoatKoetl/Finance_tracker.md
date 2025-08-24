@@ -43,5 +43,12 @@
   "otpVerificationFailed": "Ошибка: Проверка OTP не удалась",
   "invalid_credentials": "неправильные учетные данные",
   "passwordCheckFailed": "Ошибка: Проверка пароля не удалась, {{error}}",
-  "suchUserExists": "Ошибка: Такой пользователь уже существует"
+  "suchUserExists": "Ошибка: Такой пользователь уже существует",
+  "homeButton": "Главная",
+  "profileButton": "Профиль",
+  "settingsButton": "Настройки",
+  "usernameTooShort": "Ошибка: Имя пользователя слишком короткое",
+  "usernameTooLong": "Ошибка: Имя пользователя слишком длинное",
+  "username": "Имя пользователя",
+  "displayUserName": "Пользователь"
 }

@@ -4,14 +4,24 @@ import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import { User } from "lucide-react";
 import { useAuthStore } from "../stores/AuthStore";
-import LogoutButton from "./LogOutButton/LogOutButton";
+import { UserRound } from "lucide-react";
+import useAutoLogout from "../hooks/userInactivityLogout";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
+  const { user } = useAuthStore();
+
+  const username = user?.user_metadata?.display_name || t("displayUserName");
+
+  useAutoLogout(24, () => {
+    navigate("/auth");
+  });
 
   return (
-    <header className="sticky top-0 z-1 border-b-1 border-gray-100 shadow-md min-h-[70px]">
+    <header className="sticky top-0 z-1 border-b-1 bg-white border-gray-100 shadow-md min-h-[70px]">
       <div className="wrapper relative z-1 flex items-center justify-between px-4 py-1 max-w-[1440px] mx-auto">
         <div className="icon flex items-baseline">
           <Link to={"/"}>
@@ -34,7 +44,25 @@ const Header = () => {
               </Link>
             </div>
           )}
-          {isAuthenticated && <LogoutButton />}
+          {isAuthenticated && (
+            <Link
+              to={"/personal"}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <Button
+                id="profile-page-button"
+                variant="ghost"
+                className="text-black flex hover:bg-gray-100 transition-all duration-300 ease-in-out"
+              >
+                <UserRound />
+                <span className="">
+                  {username.length > 10
+                    ? username.slice(0, 10) + "…"
+                    : username}
+                </span>
+              </Button>
+            </Link>
+          )}
         </div>
       </div>
     </header>

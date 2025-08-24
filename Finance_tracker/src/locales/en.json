@@ -43,5 +43,12 @@
   "otpVerificationFailed": "Error: OTP verification failed",
   "invalid_credentials": "invalid credentials",
   "passwordCheckFailed": "Error: Password check failed, {{error}}",
-  "suchUserExists": "Error: Such user already exists"
+  "suchUserExists": "Error: Such user already exists",
+  "homeButton": "Home",
+  "profileButton": "Profile",
+  "settingsButton": "Settings",
+  "usernameTooShort": "Error: Username is too short",
+  "usernameTooLong": "Error: Username is too long",
+  "username": "Username",
+  "displayUserName": "User"
 }
