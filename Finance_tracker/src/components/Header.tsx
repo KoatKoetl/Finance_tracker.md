@@ -14,7 +14,7 @@ const Header = () => {
   const { isAuthenticated } = useAuthStore();
   const { user } = useAuthStore();
 
-  const username = user?.user_metadata?.display_name || "Guest";
+  const username = user?.user_metadata?.display_name || t("displayUserName");
 
   useAutoLogout(24, () => {
     navigate("/auth");

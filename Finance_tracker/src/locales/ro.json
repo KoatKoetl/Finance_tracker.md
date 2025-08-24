@@ -49,5 +49,6 @@
   "settingsButton": "Setari",
   "usernameTooShort": "Eroare: Numele de utilizator este prea scurt",
   "usernameTooLong": "Eroare: Numele de utilizator este prea lung",
-  "username": "Numele de utilizator"
+  "username": "Numele de utilizator",
+  "displayUserName": "Utilizator"
 }

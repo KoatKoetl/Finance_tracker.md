@@ -49,5 +49,6 @@
   "settingsButton": "Настройки",
   "usernameTooShort": "Ошибка: Имя пользователя слишком короткое",
   "usernameTooLong": "Ошибка: Имя пользователя слишком длинное",
-  "username": "Имя пользователя"
+  "username": "Имя пользователя",
+  "displayUserName": "Пользователь"
 }
