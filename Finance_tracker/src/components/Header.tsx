@@ -12,6 +12,9 @@ const Header = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
+  const { user } = useAuthStore();
+
+  const username = user?.user_metadata?.display_name || "Guest";
 
   useAutoLogout(24, () => {
     navigate("/auth");
@@ -49,9 +52,14 @@ const Header = () => {
               <Button
                 id="profile-page-button"
                 variant="ghost"
-                className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
+                className="text-black flex hover:bg-gray-100 transition-all duration-300 ease-in-out"
               >
                 <UserRound />
+                <span className="">
+                  {username.length > 10
+                    ? username.slice(0, 10) + "…"
+                    : username}
+                </span>
               </Button>
             </Link>
           )}

@@ -46,5 +46,8 @@
   "suchUserExists": "Ошибка: Такой пользователь уже существует",
   "homeButton": "Главная",
   "profileButton": "Профиль",
-  "settingsButton": "Настройки"
+  "settingsButton": "Настройки",
+  "usernameTooShort": "Ошибка: Имя пользователя слишком короткое",
+  "usernameTooLong": "Ошибка: Имя пользователя слишком длинное",
+  "username": "Имя пользователя"
 }

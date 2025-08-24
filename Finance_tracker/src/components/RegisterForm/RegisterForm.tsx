@@ -69,6 +69,11 @@ const RegisterForm = () => {
         await supabase.auth.signUp({
           email: data.email,
           password: data.password,
+          options: {
+            data: {
+              display_name: data.username,
+            },
+          },
         });
 
       if (signUpError) {
@@ -109,6 +114,25 @@ const RegisterForm = () => {
         </CardHeader>
         <CardContent className="px-4 md:px-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div>
+              <Label className="mb-1" htmlFor="username">
+                {t("username")}
+              </Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder={t("username")}
+                className="focus-visible:ring-2"
+                {...register("username")}
+                disabled={isSubmitting}
+              />
+              {errors.username && (
+                <p className="text-red-500 text-sm">
+                  {t(errors.username.message || "fieldRequired")}
+                </p>
+              )}
+            </div>
+
             <div>
               <Label className="mb-1" htmlFor="email">
                 {t("email")}

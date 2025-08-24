@@ -46,5 +46,8 @@
   "suchUserExists": "Error: Such user already exists",
   "homeButton": "Home",
   "profileButton": "Profile",
-  "settingsButton": "Settings"
+  "settingsButton": "Settings",
+  "usernameTooShort": "Error: Username is too short",
+  "usernameTooLong": "Error: Username is too long",
+  "username": "Username"
 }

@@ -2,6 +2,10 @@ import { z } from "zod";
 
 export const registerFormSchema = z
   .object({
+    username: z
+      .string()
+      .min(2, { message: "usernameTooShort" })
+      .max(50, { message: "usernameTooLong" }),
     email: z
       .string()
       .nonempty({ message: "fieldRequired" })
