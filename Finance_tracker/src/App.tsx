@@ -8,15 +8,13 @@ function App() {
   document.documentElement.lang = i18n.language;
 
   return (
-    <>
-      <Router>
-        <Header></Header>
-        <div className="max-w-[1440px] mx-auto">
-          <RoutesComponent />
-        </div>
-        <Footer></Footer>
-      </Router>
-    </>
+    <Router>
+      <Header></Header>
+      <div className="max-w-[1440px] mx-auto">
+        <RoutesComponent />
+      </div>
+      <Footer></Footer>
+    </Router>
   );
 }
 
