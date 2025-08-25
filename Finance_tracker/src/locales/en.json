@@ -50,5 +50,9 @@
   "usernameTooShort": "Error: Username is too short",
   "usernameTooLong": "Error: Username is too long",
   "username": "Username",
-  "displayUserName": "User"
+  "displayUserName": "User",
+  "restorePassword": "Restore Password",
+  "submitRestorePassword": "Restore",
+  "errorDuringPasswordReset": "Error: Failed to restore password {{error}}",
+  "restorePasswordMessageSent": "A password reset link has been sent to your email address."
 }
