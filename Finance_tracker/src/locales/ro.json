@@ -50,5 +50,9 @@
   "usernameTooShort": "Eroare: Numele de utilizator este prea scurt",
   "usernameTooLong": "Eroare: Numele de utilizator este prea lung",
   "username": "Numele de utilizator",
-  "displayUserName": "Utilizator"
+  "displayUserName": "Utilizator",
+  "restorePassword": "Restaurare Parolă",
+  "submitRestorePassword": "Restaurare",
+  "errorDuringPasswordReset": "Eroare: Restaurarea parolei a eșuat {{error}}",
+  "restorePasswordMessageSent": "Un link de resetare a parolei a fost trimis la adresa ta de email."
 }

@@ -50,5 +50,9 @@
   "usernameTooShort": "Ошибка: Имя пользователя слишком короткое",
   "usernameTooLong": "Ошибка: Имя пользователя слишком длинное",
   "username": "Имя пользователя",
-  "displayUserName": "Пользователь"
+  "displayUserName": "Пользователь",
+  "restorePassword": "Восстановить пароль",
+  "submitRestorePassword": "Восстановить",
+  "errorDuringPasswordReset": "Ошибка: Восстановление пароля не удалось {{error}}",
+  "restorePasswordMessageSent": "Ссылка для сброса пароля была отправлена на ваш адрес электронной почты."
 }
