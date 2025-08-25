@@ -8,11 +8,15 @@ import Auth from "../pages/Auth";
 import PersonalPage from "../pages/Personal/Personal";
 import PersonalLayout from "../components/Personal/PersonalLayout";
 import PersonalSettingsPage from "../pages/Personal/PersonalSettingsPage";
+import RestorePasswordForm from "../components/RestorePasswordForm/RestorePasswordForm";
+import NewPassword from "../pages/RestorePassword/NewPassword";
 
 const RoutesComponent = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/restore-password" element={<RestorePasswordForm />} />
+      <Route path="/restore-password/new-password" element={<NewPassword />} />
 
       {/* Routes accessible ONLY when NOT authenticated */}
       <Route element={<ProtectedRoute authenticate={false} />}>
