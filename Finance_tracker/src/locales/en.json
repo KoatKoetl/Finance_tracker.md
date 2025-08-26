@@ -54,5 +54,8 @@
   "restorePassword": "Restore Password",
   "submitRestorePassword": "Restore",
   "errorDuringPasswordReset": "Error: Failed to restore password {{error}}",
-  "restorePasswordMessageSent": "A password reset link has been sent to your email address."
+  "restorePasswordMessageSent": "A password reset link has been sent to your email address.",
+  "newPassword": "New Password",
+  "restorePasswordSuccess": "Your password has been successfully changed.",
+  "invalidOrExpiredLink": "Error: Invalid or expired link"
 }

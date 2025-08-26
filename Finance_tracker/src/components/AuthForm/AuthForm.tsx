@@ -150,6 +150,14 @@ const AuthForm = () => {
                 {...register("password")}
                 disabled={isSubmitting}
               />
+              <div className="text-right">
+                <Link
+                  className="relative inline-block text-sm text-primaryOrange after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100"
+                  to="/restore-password"
+                >
+                  {t("restorePassword")}
+                </Link>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-sm">
                   {t(errors.password.message || "fieldRequired")}
