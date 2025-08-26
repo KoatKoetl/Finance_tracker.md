@@ -54,5 +54,8 @@
   "restorePassword": "Restaurare Parolă",
   "submitRestorePassword": "Restaurare",
   "errorDuringPasswordReset": "Eroare: Restaurarea parolei a eșuat {{error}}",
-  "restorePasswordMessageSent": "Un link de resetare a parolei a fost trimis la adresa ta de email."
+  "restorePasswordMessageSent": "Un link de resetare a parolei a fost trimis la adresa ta de email.",
+  "newPassword": "Parolă Nouă",
+  "restorePasswordSuccess": "Parola ta a fost schimbată cu succes.",
+  "invalidOrExpiredLink": "Eroare: Link invalid sau expirat"
 }

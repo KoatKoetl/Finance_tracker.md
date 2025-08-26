@@ -54,5 +54,8 @@
   "restorePassword": "Восстановить пароль",
   "submitRestorePassword": "Восстановить",
   "errorDuringPasswordReset": "Ошибка: Восстановление пароля не удалось {{error}}",
-  "restorePasswordMessageSent": "Ссылка для сброса пароля была отправлена на ваш адрес электронной почты."
+  "restorePasswordMessageSent": "Ссылка для сброса пароля была отправлена на ваш адрес электронной почты.",
+  "newPassword": "Новый пароль",
+  "restorePasswordSuccess": "Пароль был успешно изменен.",
+  "invalidOrExpiredLink": "Ошибка: Недействительная или истекшая ссылка"
 }
