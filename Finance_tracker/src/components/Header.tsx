@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "./ui/button";
 import { User } from "lucide-react";
 import { useAuthStore } from "../stores/AuthStore";
-import { UserRound } from "lucide-react";
+import { UserRound, ChartNoAxesCombined, House } from "lucide-react";
 import useAutoLogout from "../hooks/userInactivityLogout";
 import { useNavigate } from "react-router-dom";
 
@@ -28,23 +28,36 @@ const Header = () => {
             <img src="/logo.svg" alt="" className="w-20" />
           </Link>
         </div>
+        <div className="middle-block">
+          <Link to={"/"} className="text-gray-600 hover:text-gray-900">
+            <Button
+              id="homepage-button"
+              variant="ghost"
+              className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
+            >
+              <House />
+              {t("homeButton")}
+            </Button>
+          </Link>
+          {isAuthenticated && (
+            <Link
+              to={"/statistics"}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <Button
+                id="statistics-page-button"
+                variant="ghost"
+                className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
+              >
+                <ChartNoAxesCombined />
+                {t("statistics")}
+              </Button>
+            </Link>
+          )}
+        </div>
         <div className="flex gap-2">
           <LanguageSelector />
-          {!isAuthenticated && (
-            <div>
-              <Link to={"/auth"} className="text-gray-600 hover:text-gray-900">
-                <Button
-                  id="auth-page-button"
-                  variant="ghost"
-                  className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
-                >
-                  <User />
-                  {t("login")}
-                </Button>
-              </Link>
-            </div>
-          )}
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <Link
               to={"/personal"}
               className="text-gray-600 hover:text-gray-900"
@@ -60,6 +73,17 @@ const Header = () => {
                     ? username.slice(0, 10) + "…"
                     : username}
                 </span>
+              </Button>
+            </Link>
+          ) : (
+            <Link to={"/auth"} className="text-gray-600 hover:text-gray-900">
+              <Button
+                id="auth-page-button"
+                variant="ghost"
+                className="text-black hover:bg-gray-100 transition-all duration-300 ease-in-out"
+              >
+                <User />
+                {t("login")}
               </Button>
             </Link>
           )}
