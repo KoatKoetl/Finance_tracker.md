@@ -57,5 +57,10 @@
   "restorePasswordMessageSent": "A password reset link has been sent to your email address.",
   "newPassword": "New Password",
   "restorePasswordSuccess": "Your password has been successfully changed.",
-  "invalidOrExpiredLink": "Error: Invalid or expired link"
+  "invalidOrExpiredLink": "Error: Invalid or expired link",
+  "statistics": "Statistics",
+  "pageNotFound": "Page Not Found",
+  "pageNotFoundDescription": "The page you are looking for does not exist or has been moved.",
+  "reloadPage": "Reload Page",
+  "allUniqueCategories": "All Categories"
 }

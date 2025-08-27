@@ -57,5 +57,10 @@
   "restorePasswordMessageSent": "Ссылка для сброса пароля была отправлена на ваш адрес электронной почты.",
   "newPassword": "Новый пароль",
   "restorePasswordSuccess": "Пароль был успешно изменен.",
-  "invalidOrExpiredLink": "Ошибка: Недействительная или истекшая ссылка"
+  "invalidOrExpiredLink": "Ошибка: Недействительная или истекшая ссылка",
+  "statistics": "Статистика",
+  "pageNotFound": "Страница не найдена",
+  "pageNotFoundDescription": "Запрашиваемая вами страница не существует или была перемещена.",
+  "reloadPage": "Перезагрузить страницу",
+  "allUniqueCategories": "Все категории"
 }

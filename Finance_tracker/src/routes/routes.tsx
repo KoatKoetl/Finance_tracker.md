@@ -10,6 +10,8 @@ import PersonalLayout from "../components/Personal/PersonalLayout";
 import PersonalSettingsPage from "../pages/Personal/PersonalSettingsPage";
 import RestorePasswordForm from "../components/RestorePasswordForm/RestorePasswordForm";
 import NewPassword from "../pages/RestorePassword/NewPassword";
+import Statistics from "../pages/Statistics";
+import NotFound from "../components/404";
 
 const RoutesComponent = () => {
   return (
@@ -32,7 +34,10 @@ const RoutesComponent = () => {
           <Route index element={<PersonalPage />} />
           <Route path="settings" element={<PersonalSettingsPage />} />
         </Route>
+        <Route path="/statistics" element={<Statistics />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

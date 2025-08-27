@@ -8,6 +8,7 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   username: string | null;
+  userId: string | null;
   setAuth: (session: Session | null, user: User | null) => void;
   initializeAuth: () => void;
 }
@@ -17,6 +18,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
   username: null,
+  userId: null,
   loading: true,
 
   setAuth: (session, user) => {
@@ -27,6 +29,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       user,
       isAuthenticated: !!session,
       username,
+      userId: user?.id || null,
       loading: false,
     });
   },
@@ -41,6 +44,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         user: session?.user || null,
         isAuthenticated: !!session,
         username,
+        userId: user?.id || null,
         loading: false,
       });
     });
@@ -53,6 +57,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         user: session?.user || null,
         isAuthenticated: !!session,
         username,
+        userId: user?.id || null,
         loading: false,
       });
     });

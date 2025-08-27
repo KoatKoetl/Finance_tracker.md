@@ -57,5 +57,10 @@
   "restorePasswordMessageSent": "Un link de resetare a parolei a fost trimis la adresa ta de email.",
   "newPassword": "Parolă Nouă",
   "restorePasswordSuccess": "Parola ta a fost schimbată cu succes.",
-  "invalidOrExpiredLink": "Eroare: Link invalid sau expirat"
+  "invalidOrExpiredLink": "Eroare: Link invalid sau expirat",
+  "statistics": "Statistica",
+  "pageNotFound": "Pagina nu a fost găsită",
+  "pageNotFoundDescription": "Pagina pe care o căutați nu există sau a fost mutată.",
+  "reloadPage": "Reîncarcă pagina",
+  "allUniqueCategories": "Toate categoriile"
 }
