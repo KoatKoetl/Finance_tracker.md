@@ -43,7 +43,7 @@ export const TablePagination = ({
       <PaginationContent className="flex flex-wrap justify-center">
         <PaginationItem className="order-1 sm:order-none">
           <PaginationPrevious
-            size="default"
+            size=""
             href="#"
             onClick={(e) => {
               e.preventDefault();
@@ -65,7 +65,7 @@ export const TablePagination = ({
           {getPageNumbers().map((page) => (
             <PaginationItem key={page}>
               <PaginationLink
-                size="default"
+                size=""
                 href="#"
                 isActive={page === currentPage}
                 onClick={(e) => {
@@ -89,7 +89,7 @@ export const TablePagination = ({
 
         <PaginationItem className="order-2 sm:order-none">
           <PaginationNext
-            size="default"
+            size=""
             href="#"
             onClick={(e) => {
               e.preventDefault();

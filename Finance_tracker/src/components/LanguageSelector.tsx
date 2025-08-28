@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu";
 import clsx from "clsx";
+// @ts-expect-error: using the js instead of typescript
 import i18n from "../lib/i18n";
 
 const LanguageSelector = () => {
@@ -15,7 +16,10 @@ const LanguageSelector = () => {
   const [language, setLanguage] = useState(osLanguage);
 
   // Sync i18n and lang attribute of html
-  i18n.on("languageChanged", (lng) => (document.documentElement.lang = lng));
+  i18n.on(
+    "languageChanged",
+    (lng: any) => (document.documentElement.lang = lng)
+  );
 
   return (
     <DropdownMenu modal={false}>

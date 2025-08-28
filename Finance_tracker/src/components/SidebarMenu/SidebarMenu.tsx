@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { User, Settings, Menu, X } from "lucide-react";
+import { User, Settings, X, PanelRightOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LogoutButton from "../LogOutButton/LogOutButton";
 import { Link } from "react-router-dom";
@@ -20,8 +20,12 @@ const StaticSidebar = () => {
   return (
     <>
       <div className="md:hidden sticky top-[100px]">
-        <Button onClick={toggleSidebar} variant="ghost" className="p-2">
-          {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <Button
+          onClick={toggleSidebar}
+          variant="ghost"
+          className="p-2 hover:translate-x-1"
+        >
+          <PanelRightOpen />
         </Button>
       </div>
 

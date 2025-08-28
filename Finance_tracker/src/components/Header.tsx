@@ -13,8 +13,16 @@ const Header = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
   const { user } = useAuthStore();
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const username = user?.user_metadata?.display_name || t("displayUserName");
+
+  // useEffect(() => {
+  //   const handleResize = () => setIsMobile(window.innerWidth < 768);
+  //   window.addEventListener("resize", handleResize);
+
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   useAutoLogout(24, () => {
     navigate("/auth");
@@ -28,6 +36,7 @@ const Header = () => {
             <img src="/logo.svg" alt="" className="w-20" />
           </Link>
         </div>
+
         <div className="middle-block">
           <Link to={"/"} className="text-gray-600 hover:text-gray-900">
             <Button
