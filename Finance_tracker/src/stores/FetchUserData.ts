@@ -1,15 +1,6 @@
 import { create } from "zustand";
 import { supabase } from "../lib/supabaseClient";
-
-interface Expense {
-  id: string;
-  user_id: string;
-  amount: number;
-  currency: string;
-  category: string;
-  note: string;
-  created_at: string;
-}
+import { type Expense } from "../types/expenses";
 
 interface StatisticsState {
   expenses: Expense[] | null;
