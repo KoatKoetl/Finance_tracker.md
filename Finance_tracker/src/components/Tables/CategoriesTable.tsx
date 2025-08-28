@@ -14,7 +14,7 @@ import {
 import TablePagination from "./TablesPagination";
 
 interface ExpensesTableProps {
-  data: Expense[];
+  data: Omit<Expense, "user_id">[];
 }
 
 const ExpensesTable = ({ data }: ExpensesTableProps) => {
