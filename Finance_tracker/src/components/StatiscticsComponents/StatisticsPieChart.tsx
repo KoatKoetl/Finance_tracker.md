@@ -27,7 +27,7 @@ interface PercentagePieChartProps {
  */
 const PercentagePieChart = ({ data, titleKey }: PercentagePieChartProps) => {
   return (
-    <div className="w-full h-96 p-4 flex flex-col items-center justify-center">
+    <div className="w-[100%] sm:w-[50%] h-96 p-4 flex flex-col items-center justify-center">
       <h2 className="text-xl font-semibold mb-4 text-center">{titleKey}</h2>
       <ResponsiveContainer width="95%" height="80%">
         <PieChart>
@@ -48,7 +48,6 @@ const PercentagePieChart = ({ data, titleKey }: PercentagePieChartProps) => {
               />
             ))}
           </Pie>
-
           <Tooltip
             formatter={(value, name) => [`${value}%`, name]}
             contentStyle={{
