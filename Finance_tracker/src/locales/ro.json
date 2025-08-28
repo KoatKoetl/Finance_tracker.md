@@ -62,5 +62,18 @@
   "pageNotFound": "Pagina nu a fost găsită",
   "pageNotFoundDescription": "Pagina pe care o căutați nu există sau a fost mutată.",
   "reloadPage": "Reîncarcă pagina",
-  "allUniqueCategories": "Toate categoriile"
+  "allUniqueCategories": "Toate categoriile",
+  "pagination": {
+    "previous": "Anterior",
+    "next": "Următor"
+  },
+  "allData": {
+    "title": "Toate datele",
+    "categories": "Categoria",
+    "amount": "Sumă",
+    "currency": "Valută",
+    "note": "Notă",
+    "createdAt": "Data creării",
+    "noData": "Nu sunt date de afișat."
+  }
 }

@@ -5,11 +5,39 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 import PercentagePieChart from "../components/StatiscticsComponents/StatisticsPieChart";
 import { useTranslation } from "react-i18next";
+import ExpensesTable from "../components/Tables/CategoriesTable";
 
 const Statistics = () => {
   const { userId } = useAuthStore();
   const { fetchExpenses, expenses, loading, error } = useStatisticsStore();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const expensesData = useMemo(() => {
+    if (!expenses || expenses.length === 0) return [];
+
+    const expensesData = expenses.map((item) => {
+      const date = new Date(item.created_at);
+      const formattedDate = date.toLocaleString(i18n.language, {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+
+      return {
+        id: item.id,
+        amount: item.amount,
+        currency: item.currency,
+        category: item.category,
+        note: item.note,
+        created_at: formattedDate,
+      };
+    });
+
+    return expensesData;
+  }, [expenses, i18n.language]);
 
   const totalCategories = useMemo(() => {
     if (!expenses || expenses.length === 0) return [];
@@ -51,11 +79,15 @@ const Statistics = () => {
   return (
     <>
       <div>
-        <h1>Statistics Page</h1>
-        <PercentagePieChart
-          data={totalCategories}
-          titleKey={t("allUniqueCategories")}
-        />
+        <div className="flex justify-center">
+          <ExpensesTable data={expensesData} />
+        </div>
+        <div className="flex flex-wrap justify-center">
+          <PercentagePieChart
+            data={totalCategories}
+            titleKey={t("allUniqueCategories")}
+          />
+        </div>
       </div>
     </>
   );

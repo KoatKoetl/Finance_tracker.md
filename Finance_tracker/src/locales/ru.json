@@ -62,5 +62,18 @@
   "pageNotFound": "Страница не найдена",
   "pageNotFoundDescription": "Запрашиваемая вами страница не существует или была перемещена.",
   "reloadPage": "Перезагрузить страницу",
-  "allUniqueCategories": "Все категории"
+  "allUniqueCategories": "Все категории",
+  "pagination": {
+    "previous": "Предыдущая",
+    "next": "Следующая"
+  },
+  "allData": {
+    "title": "Все данные",
+    "categories": "Категория",
+    "amount": "Сумма",
+    "currency": "Валюта",
+    "note": "Заметка",
+    "createdAt": "Дата создания",
+    "noData": "Нет данных для отображения."
+  }
 }

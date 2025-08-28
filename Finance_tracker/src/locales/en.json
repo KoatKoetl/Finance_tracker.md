@@ -62,5 +62,18 @@
   "pageNotFound": "Page Not Found",
   "pageNotFoundDescription": "The page you are looking for does not exist or has been moved.",
   "reloadPage": "Reload Page",
-  "allUniqueCategories": "All Categories"
+  "allUniqueCategories": "All Categories",
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "allData": {
+    "title": "All Data",
+    "categories": "Category",
+    "amount": "Amount",
+    "currency": "Currency",
+    "note": "Note",
+    "createdAt": "Creation Date",
+    "noData": "No data to display."
+  }
 }
