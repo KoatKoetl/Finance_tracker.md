@@ -38,9 +38,9 @@ const ExpensesTable = ({ data }: ExpensesTableProps) => {
           <TableRow>
             <TableHead>{t("allData.categories")}</TableHead>
             <TableHead>{t("allData.amount")}</TableHead>
-            <TableHead className="max-w-7">{t("allData.currency")}</TableHead>
+            <TableHead>{t("allData.currency")}</TableHead>
             <TableHead>{t("allData.note")}</TableHead>
-            <TableHead className="max-w-16">{t("allData.createdAt")}</TableHead>
+            <TableHead>{t("allData.createdAt")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -49,9 +49,9 @@ const ExpensesTable = ({ data }: ExpensesTableProps) => {
               <TableRow key={index}>
                 <TableCell className="font-medium">{item.category}</TableCell>
                 <TableCell>{item.amount}</TableCell>
-                <TableCell className="max-w-7">{item.currency}</TableCell>
+                <TableCell>{item.currency}</TableCell>
                 <TableCell>{item.note}</TableCell>
-                <TableCell className="max-w-16">{item.created_at}</TableCell>
+                <TableCell>{item.created_at}</TableCell>
               </TableRow>
             ))
           ) : (
