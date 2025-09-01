@@ -1,15 +1,25 @@
 import { useAuthStore } from "../stores/AuthStore";
-import { useEffect, useMemo } from "react";
-import { useStatisticsStore } from "../stores/FetchUserData";
+import { useMemo } from "react";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorMessage from "../components/ErrorMessage";
 import PercentagePieChart from "../components/StatiscticsComponents/StatisticsPieChart";
 import { useTranslation } from "react-i18next";
 import ExpensesTable from "../components/Tables/CategoriesTable";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserExpenses } from "../API/FetchExpenses";
 
 const Statistics = () => {
   const { userId } = useAuthStore();
-  const { fetchExpenses, expenses, loading, error } = useStatisticsStore();
+  const {
+    data: expenses,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["expenses", userId],
+    queryFn: () => fetchUserExpenses(userId!),
+    enabled: !!userId,
+  });
   const { t, i18n } = useTranslation();
 
   const expensesData = useMemo(() => {
@@ -63,17 +73,12 @@ const Statistics = () => {
     return categoriesWithPercentages;
   }, [expenses]);
 
-  useEffect(() => {
-    if (!userId) return;
-    fetchExpenses(userId);
-  }, [userId, fetchExpenses]);
-
-  if (loading) {
+  if (isLoading) {
     return <LoadingSpinner />;
   }
 
-  if (error) {
-    return <ErrorMessage message={error} />;
+  if (isError) {
+    return <ErrorMessage message={error.message} />;
   }
 
   return (
