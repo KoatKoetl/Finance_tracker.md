@@ -24,7 +24,7 @@ const Header = () => {
   //   return () => window.removeEventListener("resize", handleResize);
   // }, []);
 
-  useAutoLogout(24, () => {
+  useAutoLogout(1440, () => {
     navigate("/auth");
   });
 
