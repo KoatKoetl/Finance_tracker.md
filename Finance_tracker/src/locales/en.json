@@ -75,5 +75,6 @@
     "note": "Note",
     "createdAt": "Creation Date",
     "noData": "No data to display."
-  }
+  },
+  "totalSpentMoney": "Total Money"
 }

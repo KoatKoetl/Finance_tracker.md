@@ -75,5 +75,6 @@
     "note": "Notă",
     "createdAt": "Data creării",
     "noData": "Nu sunt date de afișat."
-  }
+  },
+  "totalSpentMoney": "Total Cheltuit"
 }
