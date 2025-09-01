@@ -1,17 +1,20 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
-const RECAPTCHA_SECRET_KEY = Deno.env.get("RECAPTCHA_SECRET_KEY");
-if (!RECAPTCHA_SECRET_KEY) {
-  throw new Error("Missing environment variables");
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.44.4";
+// Ensure the correct environment variables are being used
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+// Throw an error if a critical variable is missing
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  throw new Error("Missing Supabase environment variables");
 }
 const corsHeaders = {
-  'Access-Control-Allow-Origin': 'http://localhost:5173',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS' // Specify allowed HTTP methods for CORS
+  "Access-Control-Allow-Origin": "http://localhost:5173",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS"
 };
 serve(async (req)=>{
-  // Handle CORS preflight requests (OPTIONS method).
-  // Browsers send an OPTIONS request before the actual POST request to check CORS policies.
-  if (req.method === 'OPTIONS') {
+  // Handle CORS preflight requests
+  if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 200,
       headers: corsHeaders
@@ -25,9 +28,8 @@ serve(async (req)=>{
       });
     }
     const body = await req.json();
-    const { recaptchaToken } = body;
-    // Validate that all required fields (email, password, reCAPTCHA token) are present.
-    if (!recaptchaToken) {
+    const { email, password } = body;
+    if (!email || !password) {
       return new Response(JSON.stringify({
         error: "Missing required fields"
       }), {
@@ -38,20 +40,20 @@ serve(async (req)=>{
         }
       });
     }
-    // Verify the reCAPTCHA. This helps prevent automated bots from creating accounts.
-    const verifyRes = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+    // Initialize the Supabase client with the SERVICE ROLE KEY
+    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    // Use signInWithPassword to verify credentials
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
     });
-    const verifyData = await verifyRes.json();
-    if (!verifyData.success) {
+    if (error) {
+      console.error("Login attempt failed:", error.message);
       return new Response(JSON.stringify({
-        error: "reCAPTCHA verification failed"
+        success: false,
+        message: "Invalid credentials"
       }), {
-        status: 400,
+        status: 401,
         headers: {
           "Content-Type": "application/json",
           ...corsHeaders
@@ -60,7 +62,7 @@ serve(async (req)=>{
     }
     return new Response(JSON.stringify({
       success: true,
-      message: "reCAPTCHA verification successful."
+      message: "Password is correct"
     }), {
       status: 200,
       headers: {
