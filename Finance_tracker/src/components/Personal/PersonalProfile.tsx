@@ -3,9 +3,9 @@ import { useAuthStore } from "../../stores/AuthStore";
 import { useTranslation } from "react-i18next";
 
 const PersonalProfile = () => {
-  const { user } = useAuthStore();
+  const { username } = useAuthStore();
   const { t } = useTranslation();
-  const username = user?.user_metadata?.display_name || t("displayUserName");
+  const userName = username || t("displayUserName");
 
   return (
     // MOCKUP TEMPLATE TO TEST RESPONSIVNESS
@@ -21,7 +21,7 @@ const PersonalProfile = () => {
         </div>
         {/* Name and Title */}
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-800 mb-2">
-          {username}
+          {userName}
         </h1>
         <p className="text-lg text-purple-600 font-semibold mb-6">
           Web Developer & Digital Creator
