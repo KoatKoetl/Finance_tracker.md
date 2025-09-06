@@ -12,10 +12,10 @@ const Header = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthStore();
-  const { user } = useAuthStore();
+  const { username } = useAuthStore();
   // const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  const username = user?.user_metadata?.display_name || t("displayUserName");
+  const userName = username || t("displayUserName");
 
   // useEffect(() => {
   //   const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -78,9 +78,9 @@ const Header = () => {
               >
                 <UserRound />
                 <span className="">
-                  {username.length > 10
-                    ? username.slice(0, 10) + "…"
-                    : username}
+                  {userName.length > 10
+                    ? userName.slice(0, 10) + "…"
+                    : userName}
                 </span>
               </Button>
             </Link>

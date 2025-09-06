@@ -22,7 +22,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   loading: true,
 
   setAuth: (session, user) => {
-    const username = user?.user_metadata?.username || null;
+    const username = user?.user_metadata?.display_name || null;
 
     set({
       session,
@@ -37,7 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   initializeAuth: () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       const user = session?.user || null;
-      const username = user?.user_metadata?.username || null;
+      const username = user?.user_metadata?.display_name || null;
 
       set({
         session,
@@ -51,7 +51,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     supabase.auth.onAuthStateChange((_event, session) => {
       const user = session?.user || null;
-      const username = user?.user_metadata?.username || null;
+      const username = user?.user_metadata?.display_name || null;
       set({
         session,
         user: session?.user || null,
